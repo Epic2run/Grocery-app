@@ -6,13 +6,12 @@ class Product:
 
 
 class Grocery_manager:
-
   def __init__(self):
     self.items_list = []
 
   def add_item(self, name, quantity, price):
     for item in self.items_list:
-      if item.name.lower() == name.lower():
+      if str(item.name).strip().lower() == str(name).strip().lower():
         item.quantity += quantity
         item.price = price
         return
@@ -21,15 +20,24 @@ class Grocery_manager:
     self.items_list.append(new_product)
 
   def delete_item(self, name):
+    target_name = str(name).strip().lower()
+    new_list = []
+    
     for item in self.items_list:
-      if item.name.lower() == name.lower():
-        self.items_list.remove(item)
+      if str(item.name).strip().lower() != target_name:
+        new_list.append(item)
 
-  def update_item(self, name, new_quantity, new_price):
+    self.items_list = new_list
+
+  def update_item(self, old_name, new_name, new_quantity, new_price):
+    target_old = str(old_name).strip().lower()
+
     for item in self.items_list:
-      if item.name.lower() == name.lower():
+      if str(item.name).strip().lower() == target_old:
+        item.name = new_name
         item.quantity = new_quantity
         item.price = new_price
+        break
 
   def get_all_items(self):
     for i in self.items_list:
@@ -42,8 +50,9 @@ class Grocery_manager:
 
   def search_item(self, keyword):
     result = []
+    target = str(keyword).strip().lower()
     for item in self.items_list:
-      if keyword.lower() in item.name.lower():
+      if str(item.name).lower().startswith(target):
         result.append(item)
     return result
 

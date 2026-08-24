@@ -3,12 +3,8 @@ from models import Grocery_manager
 from tkinter import ttk
 from CTkMessagebox import CTkMessagebox
 
-set_appearance_mode("System")
-set_default_color_theme("blue")
-
 
 class GroceryApp:
-
   def __init__(self, root):
     self.root = root
     self.root.title("Grocery Management System")
@@ -151,19 +147,21 @@ class GroceryApp:
 
   def delete_product(self):
     selected_items = self.tree.selection()
+
     if not selected_items:
-      print("Zəhmət olmasa cədvəldən məhsul seçin!")
-      return
+        CTkMessagebox(title="INFO", message="Zəhmət olmasa cədvəldən məhsul seçin!")
+        return
 
-    # Seçilmiş sətrin cədvəldəki indeksini tapırıq
     for item_id in selected_items:
-      index = self.tree.index(item_id)
-      # Həmin indeksdəki məhsulu birbaşa siyahıdan silirik
-      if 0 <= index < len(self.manager.items_list):
-        removed = self.manager.items_list.pop(index)
-        print(f"Silindi: {removed.name}")
+        values = self.tree.item(item_id, "values")
 
-    # Faylı yeniləyirik və cədvəli təzələyirik
+        if values:
+            name = str(values[0])
+            for item in self.manager.items_list:
+                if str(item.name).lower() == name.lower():
+                    self.manager.items_list.remove(item)
+                    break
+
     self.manager.save_to_file()
     self.update_table()
     self.clear_entries()
@@ -182,7 +180,7 @@ class GroceryApp:
       item_data = self.tree.item(selected_item)
       values = item_data["values"]
       if values:
-        self.selected_product_name = values[0]  # Köhnə adı yadda saxlayırıq
+        self.selected_product_name = values[0]
         self.name_entry.delete(0, "end")
         self.name_entry.insert(0, values[0])
         self.qty_entry.delete(0, "end")
@@ -195,3 +193,6 @@ class GroceryApp:
     self.qty_entry.delete(0, "end")
     self.price_entry.delete(0, "end")
     self.selected_product_name = None
+
+class A:
+  pass
