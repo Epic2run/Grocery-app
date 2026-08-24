@@ -8,7 +8,7 @@ class GroceryApp:
     def __init__(self, window):
         self.window = window
         self.window.title("Grocery Management System")
-        self.window.geometry("1100x650")
+        self.window.geometry("1100x650+160+0")
         self.window.config(bg="#D5E4C3")
 
         self.manager = Grocery_manager()
@@ -96,7 +96,6 @@ class GroceryApp:
         self.tree.column("Price",width=130,anchor="center")
 
         scrollbar = ttk.Scrollbar(table_frame,orient="vertical",command=self.tree.yview)
-
         self.tree.configure(yscrollcommand=scrollbar.set)
 
         self.tree.pack(side="left",fill="both",expand=True)
