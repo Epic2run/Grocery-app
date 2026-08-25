@@ -8,8 +8,10 @@ class GroceryApp:
     def __init__(self, window):
         self.window = window
         self.window.title("Grocery Management System")
-        self.window.geometry("1100x650+160+0")
         self.window.config(bg="#D5E4C3")
+        screen_width = self.window.winfo_screenwidth()
+        screen_height = self.window.winfo_screenheight()
+        self.window.geometry(f"{screen_width}x{screen_height}+0+0")
 
         self.manager = Grocery_manager()
         self.manager.load_from_file()
@@ -204,7 +206,7 @@ class GroceryApp:
         self.clear_entries()
         CTkMessagebox(title="Success",message="Products loaded successfully!")
 
-    def on_row_select(self,event):
+    def on_row_select(self, event):
         selected_item = self.tree.selection()
         if selected_item:
             item_data = self.tree.item(selected_item[0])

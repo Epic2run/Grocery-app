@@ -1,3 +1,4 @@
 Milk,4,1.0
 Cheese,15,5.0
 Yogurt,11,4.0
+Bread,16,0.5
